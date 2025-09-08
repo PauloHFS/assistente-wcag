@@ -1,0 +1,12 @@
+Dckerfile
+.dockerignore
+.git
+.gitignore
+.vscode
+notebooks/
+data/
+models/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
