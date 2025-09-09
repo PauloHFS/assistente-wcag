@@ -1,45 +1,49 @@
-[tool.poetry]
+[project]
 name = "assistente-wcag"
 version = "0.1.0"
 description = "Assistente com RAG e Agentes para consultar das diretrizes do WCAG."
-authors = ["Paulo Hernane Fontes e Silva <paulo.hernane.silva@ccc.ufcg.edu.br>"]
-license = "APACHE"
+authors = [
+    { name = "Paulo Hernane Fontes e Silva", email = "paulo.hernane.silva@ccc.ufcg.edu.br" },
+]
+license = "Apache-2.0"
 readme = "README.md"
+requires-python = ">=3.12, <4.0"
+dependencies = [
+    "langchain>=0.2.1",
+    "langgraph>=0.0.60",
+    "langchain-community>=0.2.2",
+    "langchain-core>=0.2.3",
+    "streamlit>=1.36.0",
+    "faiss-cpu>=1.8.0",
+    "sentence-transformers>=3.0.1",
+    "ollama>=0.2.1",
+    "python-dotenv>=1.0.1",
+]
 
-[tool.poetry.dependencies]
-python = "~3.12" 
-langchain = "^0.2.1"
-langgraph = "^0.0.60"
-langchain-community = "^0.2.2"
-langchain-core = "^0.2.3"
-streamlit = "^1.36.0"
-faiss-cpu = "^1.8.0"
-sentence-transformers = "^3.0.1"
-ollama = "^0.2.1"
-python-dotenv = "^1.0.1"
-
-[tool.poetry.group.ingestion.dependencies]
-pypdf = "^4.2.0"
-beautifulsoup4 = "^4.12.3"
-unstructured = "^0.14.5"
-
-[tool.poetry.group.evaluation.dependencies]
-ragas = "^0.1.9"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.2.2"
-ruff = "^0.4.8"
-black = "^24.4.2"
-isort = "^5.13.2"
-mypy = "^1.10.0"
+[project.optional-dependencies]
+ingestion = [
+    "pypdf>=4.2.0",
+    "beautifulsoup4>=4.12.3",
+    "unstructured>=0.14.5",
+]
+evaluation = [
+    "ragas>=0.1.9",
+]
+dev = [
+    "pytest>=8.2.2",
+    "ruff>=0.4.8",
+    "black>=24.4.2",
+    "isort>=5.13.2",
+    "mypy>=1.10.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.ruff]
 line-length = 88
-target-version = "py311"
+target-version = "py312"
 
 [tool.black]
 line-length = 88
