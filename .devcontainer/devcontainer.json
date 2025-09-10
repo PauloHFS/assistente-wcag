@@ -1,0 +1,23 @@
+{
+	"name": "Assistente WCAG",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces",
+	"remoteUser": "vscode",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.pylance",
+				"charliermarsh.ruff",
+				"ms-python.black-formatter",
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	},
+	"forwardPorts": [
+		8501,
+		11434
+	],
+	"postCreateCommand": "sudo chown -R vscode:vscode /workspaces && sudo uv pip install --system -r requirements.txt"
+}
