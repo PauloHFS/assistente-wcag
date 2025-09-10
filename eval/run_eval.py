@@ -4,22 +4,35 @@ import pandas as pd
 from datasets import Dataset
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from ragas import evaluate
-from ragas.metrics import answer_relevancy, faithfulness
+from ragas.metrics import (
+    answer_correctness,
+    answer_relevancy,
+    context_recall,
+    faithfulness,
+)
 
 
-def mock_rag_pipeline(question: str) -> typing.Dict[str, typing.Any]:
-    generated_answer = f"Com base nos dados, a resposta para '{question}' parece ser a que foi encontrada nas fontes."
+# TODO: remover isso quando tiver o agent
+def mock_rag_pipeline(question: str, ground_truth: str) -> typing.Dict[str, typing.Any]:
+    generated_answer = f"De acordo com as diretrizes, {ground_truth.lower().strip('.')}, o que é crucial para a conformidade."
+
     retrieved_contexts = [
-        f"Fonte A menciona informações gerais sobre a pergunta: '{question}'.",
-        "Fonte B confirma detalhes específicos relacionados ao tópico.",
-        "Fonte C oferece um contexto histórico sobre o assunto.",
+        f"A documentação principal afirma claramente que: '{ground_truth}'.",
+        f"Um artigo secundário discute o tópico da pergunta '{question}' e menciona pontos relacionados.",
+        "Outra fonte fala sobre a história e a evolução dessas diretrizes de acessibilidade.",
     ]
     return {"answer": generated_answer, "contexts": retrieved_contexts}
 
 
 def main():
     df = pd.read_csv("eval/test-set.csv")
-    results = [mock_rag_pipeline(q) for q in df["question"]]
+
+    results = []
+    for _, row in df.iterrows():
+        # TODO: remover isso quando tiver o agent
+        result = mock_rag_pipeline(row["question"], row["ground_truth"])
+        results.append(result)
+
     df["answer"] = [r["answer"] for r in results]
     df["contexts"] = [r["contexts"] for r in results]
     dataset = Dataset.from_pandas(df)
@@ -32,6 +45,8 @@ def main():
         metrics=[
             faithfulness,
             answer_relevancy,
+            answer_correctness,
+            context_recall,
         ],
         llm=gemini_llm,
         embeddings=gemini_embeddings,

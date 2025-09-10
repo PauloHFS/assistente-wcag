@@ -1,4 +1,22 @@
-question,ground_truth
-"Qual é a capital da França?","A capital da França é Paris."
-"Quem escreveu 'Dom Quixote'?","'Dom Quixote' foi escrito por Miguel de Cervantes."
-"Qual o ponto de ebulição da água ao nível do mar em Celsius?","O ponto de ebulição da água ao nível do mar é 100 graus Celsius."
+id,question,ground_truth	,"ground_truth_source_url
+"
+1,Qual a taxa de contraste mínima para textos de tamanho normal?,"""A relação de contraste entre o texto e o fundo deve ser de pelo menos 4.5:1.""",https://www.w3.org/WAI/WCAG22/quickref/#contrast-minimum
+2,Para que serve o atributo alt em uma imagem?,"""Fornece um texto alternativo que é apresentado quando a imagem não pode ser exibida, e é lido por leitores de tela.""",https://www.w3.org/WAI/WCAG22/quickref/#non-text-content
+3,Todo elemento <input> precisa de um <label>?,"""Sim, para garantir que o propósito do campo seja claro para todos os usuários, incluindo os que usam tecnologias assistivas.""",https://www.w3.org/WAI/WCAG22/quickref/#labels-or-instructions
+4,"Qual a finalidade do atributo role=""button""?","""Informa à tecnologia assistiva que um elemento, como uma <div>, deve se comportar como um botão.""",https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA/Roles/button_role
+5,É possível navegar em todos os elementos interativos usando apenas o teclado?,"""Sim, todo conteúdo operável por um mouse deve ser operável por um teclado.""",https://www.w3.org/WAI/WCAG22/quickref/#keyboard
+6,"O que é o critério ""Foco Visível""?","""Qualquer componente de interface operável por teclado deve ter um indicador de foco visível.""",https://www.w3.org/WAI/WCAG22/quickref/#focus-visible
+7,O título de uma página (<title>) é importante para acessibilidade?,"""Sim, o título da página ajuda os usuários a entenderem o propósito da página e a navegarem entre abas ou janelas.""",https://www.w3.org/WAI/WCAG22/quickref/#page-titled
+8,O idioma principal de uma página deve ser declarado? Como?,"""Sim, o idioma principal de cada página deve ser definido programaticamente, usando o atributo lang na tag <html>.""",https://www.w3.org/WAI/WCAG22/quickref/#language-of-page
+9,"O que significa o critério ""Redimensionamento de Texto""?","""O texto deve ser redimensionável em até 200% sem perda de conteúdo ou funcionalidade.""",https://www.w3.org/WAI/WCAG22/quickref/#resize-text
+10,Qual a regra para links com o mesmo nome que apontam para URLs diferentes?,"""Links com o mesmo texto de link, mas destinos diferentes, podem confundir os usuários e devem ser evitados ou diferenciados.""",https://www.w3.org/WAI/WCAG22/quickref/#link-purpose-in-context
+11,Como se deve identificar erros em um formulário de forma acessível?,"""O erro deve ser identificado em texto e descrito para o usuário, associando a mensagem de erro ao campo correspondente.""",https://www.w3.org/WAI/WCAG22/quickref/#error-identification
+12,Posso usar apenas a cor para transmitir uma informação importante?,"""Não, a cor não deve ser usada como o único meio visual de transmitir informação, indicar uma ação ou solicitar uma resposta.""",https://www.w3.org/WAI/WCAG22/quickref/#use-of-color
+13,Qual o propósito de cabeçalhos (<h1>-<h6>) para acessibilidade?,"""Eles criam uma estrutura lógica no conteúdo, permitindo que usuários de leitores de tela naveguem pela página por seções.""",https://www.w3.org/WAI/WCAG22/quickref/#headings-and-labels
+14,Vídeos pré-gravados precisam de legendas?,"""Sim, legendas são necessárias para todo conteúdo de áudio pré-gravado em mídias sincronizadas.""",https://www.w3.org/WAI/WCAG22/quickref/#captions-prerecorded
+15,Qual a função do atributo aria-live?,"""Indica que uma região da página pode ser atualizada dinamicamente, e informa leitores de tela para anunciarem as mudanças.""",https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+16,"O que é o critério de ""Consistência na Navegação""?","""Mecanismos de navegação repetidos em múltiplas páginas devem ocorrer na mesma ordem relativa a cada vez.""",https://www.w3.org/WAI/WCAG22/quickref/#consistent-navigation
+17,"Qual a taxa de contraste mínima para componentes de interface, como bordas de input?","""Componentes da interface e estados visuais devem ter um contraste de pelo menos 3:1 contra cores adjacentes.""",https://www.w3.org/WAI/WCAG22/quickref/#non-text-contrast
+18,Como garantir que o propósito de um link seja compreensível?,"""O propósito de cada link pode ser determinado a partir do texto do link isoladamente ou do texto do link com seu contexto.""",https://www.w3.org/WAI/WCAG22/quickref/#link-purpose-in-context
+19,Existe um tempo limite para sessões do usuário?,"""Se houver um tempo limite, o usuário deve ser avisado e ter a opção de estender a sessão.""",https://www.w3.org/WAI/WCAG22/quickref/#timing-adjustable
+20,"O que é o critério ""Target Size (Minimum)""?","""O tamanho do alvo para entradas de ponteiro deve ser de pelo menos 24 por 24 pixels CSS.""",https://www.w3.org/WAI/WCAG22/quickref/#target-size-minimum
