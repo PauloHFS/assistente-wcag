@@ -32,8 +32,6 @@ beautifulsoup4==4.13.5
     # via
     #   assistente-wcag (pyproject.toml)
     #   unstructured
-black==24.10.0
-    # via assistente-wcag (pyproject.toml)
 blinker==1.9.0
     # via streamlit
 cachetools==6.2.0
@@ -51,7 +49,6 @@ charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via
-    #   black
     #   nltk
     #   streamlit
 cryptography==45.0.7
@@ -123,8 +120,6 @@ idna==3.10
     #   yarl
 iniconfig==2.1.0
     # via pytest
-isort==5.13.2
-    # via assistente-wcag (pyproject.toml)
 jinja2==3.1.6
     # via
     #   altair
@@ -193,7 +188,6 @@ mypy==1.17.1
     # via assistente-wcag (pyproject.toml)
 mypy-extensions==1.1.0
     # via
-    #   black
     #   mypy
     #   typing-inspect
 narwhals==2.4.0
@@ -266,7 +260,6 @@ orjson==3.11.3
 packaging==24.2
     # via
     #   altair
-    #   black
     #   datasets
     #   faiss-cpu
     #   huggingface-hub
@@ -280,15 +273,11 @@ pandas==2.3.2
     #   datasets
     #   streamlit
 pathspec==0.12.1
-    # via
-    #   black
-    #   mypy
+    # via mypy
 pillow==11.3.0
     # via
     #   sentence-transformers
     #   streamlit
-platformdirs==4.4.0
-    # via black
 pluggy==1.6.0
     # via pytest
 propcache==0.3.2
