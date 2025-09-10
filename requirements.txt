@@ -1,153 +1,490 @@
-aiofiles==24.1.0 ; python_version == "3.12"
-aiohappyeyeballs==2.6.1 ; python_version == "3.12"
-aiohttp==3.12.15 ; python_version == "3.12"
-aiosignal==1.4.0 ; python_version == "3.12"
-altair==5.5.0 ; python_version == "3.12"
-annotated-types==0.7.0 ; python_version == "3.12"
-anyio==4.10.0 ; python_version == "3.12"
-appdirs==1.4.4 ; python_version == "3.12"
-attrs==25.3.0 ; python_version == "3.12"
-backoff==2.2.1 ; python_version == "3.12"
-beautifulsoup4==4.13.5 ; python_version == "3.12"
-black==24.10.0 ; python_version == "3.12"
-blinker==1.9.0 ; python_version == "3.12"
-cachetools==6.2.0 ; python_version == "3.12"
-certifi==2025.8.3 ; python_version == "3.12"
-cffi==2.0.0 ; python_version == "3.12" and platform_python_implementation != "PyPy"
-chardet==5.2.0 ; python_version == "3.12"
-charset-normalizer==3.4.3 ; python_version == "3.12"
-click==8.2.1 ; python_version == "3.12"
-colorama==0.4.6 ; (platform_system == "Windows" or sys_platform == "win32") and python_version == "3.12"
-cryptography==45.0.7 ; python_version == "3.12"
-dataclasses-json==0.6.7 ; python_version == "3.12"
-datasets==4.0.0 ; python_version == "3.12"
-dill==0.3.8 ; python_version == "3.12"
-distro==1.9.0 ; python_version == "3.12"
-emoji==2.14.1 ; python_version == "3.12"
-faiss-cpu==1.12.0 ; python_version == "3.12"
-filelock==3.19.1 ; python_version == "3.12"
-filetype==1.2.0 ; python_version == "3.12"
-frozenlist==1.7.0 ; python_version == "3.12"
-fsspec==2025.3.0 ; python_version == "3.12"
-gitdb==4.0.12 ; python_version == "3.12"
-gitpython==3.1.45 ; python_version == "3.12"
-greenlet==3.2.4 ; python_version == "3.12" and (platform_machine == "aarch64" or platform_machine == "ppc64le" or platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "AMD64" or platform_machine == "win32" or platform_machine == "WIN32")
-h11==0.16.0 ; python_version == "3.12"
-hf-xet==1.1.9 ; python_version == "3.12" and (platform_machine == "x86_64" or platform_machine == "amd64" or platform_machine == "arm64" or platform_machine == "aarch64")
-httpcore==1.0.9 ; python_version == "3.12"
-httpx==0.27.2 ; python_version == "3.12"
-huggingface-hub==0.34.4 ; python_version == "3.12"
-idna==3.10 ; python_version == "3.12"
-iniconfig==2.1.0 ; python_version == "3.12"
-isort==5.13.2 ; python_version == "3.12"
-jinja2==3.1.6 ; python_version == "3.12"
-jiter==0.10.0 ; python_version == "3.12"
-joblib==1.5.2 ; python_version == "3.12"
-jsonpatch==1.33 ; python_version == "3.12"
-jsonpointer==3.0.0 ; python_version == "3.12"
-jsonschema-specifications==2025.9.1 ; python_version == "3.12"
-jsonschema==4.25.1 ; python_version == "3.12"
-langchain-community==0.2.19 ; python_version == "3.12"
-langchain-core==0.2.43 ; python_version == "3.12"
-langchain-openai==0.1.25 ; python_version == "3.12"
-langchain-text-splitters==0.2.4 ; python_version == "3.12"
-langchain==0.2.17 ; python_version == "3.12"
-langdetect==1.0.9 ; python_version == "3.12"
-langgraph==0.0.60 ; python_version == "3.12"
-langsmith==0.1.147 ; python_version == "3.12"
-lxml==6.0.1 ; python_version == "3.12"
-markupsafe==3.0.2 ; python_version == "3.12"
-marshmallow==3.26.1 ; python_version == "3.12"
-mpmath==1.3.0 ; python_version == "3.12"
-multidict==6.6.4 ; python_version == "3.12"
-multiprocess==0.70.16 ; python_version == "3.12"
-mypy-extensions==1.1.0 ; python_version == "3.12"
-mypy==1.17.1 ; python_version == "3.12"
-narwhals==2.4.0 ; python_version == "3.12"
-nest-asyncio==1.6.0 ; python_version == "3.12"
-networkx==3.5 ; python_version == "3.12"
-nltk==3.9.1 ; python_version == "3.12"
-numpy==1.26.4 ; python_version == "3.12"
-nvidia-cublas-cu12==12.8.4.1 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cuda-cupti-cu12==12.8.90 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cuda-nvrtc-cu12==12.8.93 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cuda-runtime-cu12==12.8.90 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cudnn-cu12==9.10.2.21 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cufft-cu12==11.3.3.83 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cufile-cu12==1.13.1.3 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-curand-cu12==10.3.9.90 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cusolver-cu12==11.7.3.90 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cusparse-cu12==12.5.8.93 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-cusparselt-cu12==0.7.1 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-nccl-cu12==2.27.3 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-nvjitlink-cu12==12.8.93 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-nvidia-nvtx-cu12==12.8.90 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-ollama==0.2.1 ; python_version == "3.12"
-openai==1.107.0 ; python_version == "3.12"
-orjson==3.11.3 ; python_version == "3.12" and platform_python_implementation != "PyPy"
-packaging==24.2 ; python_version == "3.12"
-pandas==2.3.2 ; python_version == "3.12"
-pathspec==0.12.1 ; python_version == "3.12"
-pillow==11.3.0 ; python_version == "3.12"
-platformdirs==4.4.0 ; python_version == "3.12"
-pluggy==1.6.0 ; python_version == "3.12"
-propcache==0.3.2 ; python_version == "3.12"
-protobuf==6.32.0 ; python_version == "3.12"
-psutil==7.0.0 ; python_version == "3.12"
-pyarrow==21.0.0 ; python_version == "3.12"
-pycparser==2.22 ; platform_python_implementation != "PyPy" and implementation_name != "PyPy" and python_version == "3.12"
-pydantic-core==2.33.2 ; python_version == "3.12"
-pydantic==2.11.7 ; python_version == "3.12"
-pydeck==0.9.1 ; python_version == "3.12"
-pygments==2.19.2 ; python_version == "3.12"
-pypdf==4.3.1 ; python_version == "3.12"
-pysbd==0.3.4 ; python_version == "3.12"
-pytest==8.4.2 ; python_version == "3.12"
-python-dateutil==2.9.0.post0 ; python_version == "3.12"
-python-dotenv==1.1.1 ; python_version == "3.12"
-python-iso639==2025.2.18 ; python_version == "3.12"
-python-magic==0.4.27 ; python_version == "3.12"
-pytz==2025.2 ; python_version == "3.12"
-pyyaml==6.0.2 ; python_version == "3.12"
-ragas==0.1.22 ; python_version == "3.12"
-rapidfuzz==3.14.1 ; python_version == "3.12"
-referencing==0.36.2 ; python_version == "3.12"
-regex==2025.9.1 ; python_version == "3.12"
-requests-toolbelt==1.0.0 ; python_version == "3.12"
-requests==2.32.5 ; python_version == "3.12"
-rpds-py==0.27.1 ; python_version == "3.12"
-ruff==0.4.10 ; python_version == "3.12"
-safetensors==0.6.2 ; python_version == "3.12"
-scikit-learn==1.7.1 ; python_version == "3.12"
-scipy==1.16.1 ; python_version == "3.12"
-sentence-transformers==3.4.1 ; python_version == "3.12"
-setuptools==80.9.0 ; python_version == "3.12"
-six==1.17.0 ; python_version == "3.12"
-smmap==5.0.2 ; python_version == "3.12"
-sniffio==1.3.1 ; python_version == "3.12"
-soupsieve==2.8 ; python_version == "3.12"
-sqlalchemy==2.0.43 ; python_version == "3.12"
-streamlit==1.49.1 ; python_version == "3.12"
-sympy==1.14.0 ; python_version == "3.12"
-tabulate==0.9.0 ; python_version == "3.12"
-tenacity==8.5.0 ; python_version == "3.12"
-threadpoolctl==3.6.0 ; python_version == "3.12"
-tiktoken==0.11.0 ; python_version == "3.12"
-tokenizers==0.22.0 ; python_version == "3.12"
-toml==0.10.2 ; python_version == "3.12"
-torch==2.8.0 ; python_version == "3.12"
-tornado==6.5.2 ; python_version == "3.12"
-tqdm==4.67.1 ; python_version == "3.12"
-transformers==4.56.1 ; python_version == "3.12"
-triton==3.4.0 ; platform_system == "Linux" and platform_machine == "x86_64" and python_version == "3.12"
-typing-extensions==4.15.0 ; python_version == "3.12"
-typing-inspect==0.9.0 ; python_version == "3.12"
-typing-inspection==0.4.1 ; python_version == "3.12"
-tzdata==2025.2 ; python_version == "3.12"
-unstructured-client==0.42.3 ; python_version == "3.12"
-unstructured==0.14.10 ; python_version == "3.12"
-urllib3==2.5.0 ; python_version == "3.12"
-watchdog==6.0.0 ; python_version == "3.12" and platform_system != "Darwin"
-wrapt==1.17.3 ; python_version == "3.12"
-xxhash==3.5.0 ; python_version == "3.12"
-yarl==1.20.1 ; python_version == "3.12"
+# This file was autogenerated by uv via the following command:
+#    uv pip compile pyproject.toml --extra dev --extra ingestion --extra evaluation -o requirements.txt
+aiofiles==24.1.0
+    # via unstructured-client
+aiohappyeyeballs==2.6.1
+    # via aiohttp
+aiohttp==3.12.15
+    # via
+    #   fsspec
+    #   langchain
+    #   langchain-community
+aiosignal==1.4.0
+    # via aiohttp
+altair==5.5.0
+    # via streamlit
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.10.0
+    # via
+    #   httpx
+    #   openai
+appdirs==1.4.4
+    # via ragas
+attrs==25.3.0
+    # via
+    #   aiohttp
+    #   jsonschema
+    #   referencing
+backoff==2.2.1
+    # via unstructured
+beautifulsoup4==4.13.5
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   unstructured
+black==24.10.0
+    # via assistente-wcag (pyproject.toml)
+blinker==1.9.0
+    # via streamlit
+cachetools==6.2.0
+    # via streamlit
+certifi==2025.8.3
+    # via
+    #   httpcore
+    #   httpx
+    #   requests
+cffi==2.0.0
+    # via cryptography
+chardet==5.2.0
+    # via unstructured
+charset-normalizer==3.4.3
+    # via requests
+click==8.2.1
+    # via
+    #   black
+    #   nltk
+    #   streamlit
+cryptography==45.0.7
+    # via unstructured-client
+dataclasses-json==0.6.7
+    # via
+    #   langchain-community
+    #   unstructured
+datasets==4.0.0
+    # via ragas
+dill==0.3.8
+    # via
+    #   datasets
+    #   multiprocess
+distro==1.9.0
+    # via openai
+emoji==2.14.1
+    # via unstructured
+faiss-cpu==1.12.0
+    # via assistente-wcag (pyproject.toml)
+filelock==3.19.1
+    # via
+    #   datasets
+    #   huggingface-hub
+    #   torch
+    #   transformers
+filetype==1.2.0
+    # via unstructured
+frozenlist==1.7.0
+    # via
+    #   aiohttp
+    #   aiosignal
+fsspec==2025.3.0
+    # via
+    #   datasets
+    #   huggingface-hub
+    #   torch
+gitdb==4.0.12
+    # via gitpython
+gitpython==3.1.45
+    # via streamlit
+greenlet==3.2.4
+    # via sqlalchemy
+h11==0.16.0
+    # via httpcore
+hf-xet==1.1.9
+    # via huggingface-hub
+httpcore==1.0.9
+    # via
+    #   httpx
+    #   unstructured-client
+httpx==0.27.2
+    # via
+    #   langsmith
+    #   ollama
+    #   openai
+    #   unstructured-client
+huggingface-hub==0.34.4
+    # via
+    #   datasets
+    #   sentence-transformers
+    #   tokenizers
+    #   transformers
+idna==3.10
+    # via
+    #   anyio
+    #   httpx
+    #   requests
+    #   yarl
+iniconfig==2.1.0
+    # via pytest
+isort==5.13.2
+    # via assistente-wcag (pyproject.toml)
+jinja2==3.1.6
+    # via
+    #   altair
+    #   pydeck
+    #   torch
+jiter==0.10.0
+    # via openai
+joblib==1.5.2
+    # via
+    #   nltk
+    #   scikit-learn
+jsonpatch==1.33
+    # via langchain-core
+jsonpointer==3.0.0
+    # via jsonpatch
+jsonschema==4.25.1
+    # via altair
+jsonschema-specifications==2025.9.1
+    # via jsonschema
+langchain==0.2.17
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   langchain-community
+    #   ragas
+langchain-community==0.2.19
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   ragas
+langchain-core==0.2.43
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   langchain
+    #   langchain-community
+    #   langchain-openai
+    #   langchain-text-splitters
+    #   langgraph
+    #   ragas
+langchain-openai==0.1.25
+    # via ragas
+langchain-text-splitters==0.2.4
+    # via langchain
+langdetect==1.0.9
+    # via unstructured
+langgraph==0.0.60
+    # via assistente-wcag (pyproject.toml)
+langsmith==0.1.147
+    # via
+    #   langchain
+    #   langchain-community
+    #   langchain-core
+lxml==6.0.1
+    # via unstructured
+markupsafe==3.0.2
+    # via jinja2
+marshmallow==3.26.1
+    # via dataclasses-json
+mpmath==1.3.0
+    # via sympy
+multidict==6.6.4
+    # via
+    #   aiohttp
+    #   yarl
+multiprocess==0.70.16
+    # via datasets
+mypy==1.17.1
+    # via assistente-wcag (pyproject.toml)
+mypy-extensions==1.1.0
+    # via
+    #   black
+    #   mypy
+    #   typing-inspect
+narwhals==2.4.0
+    # via altair
+nest-asyncio==1.6.0
+    # via ragas
+networkx==3.5
+    # via torch
+nltk==3.9.1
+    # via unstructured
+numpy==1.26.4
+    # via
+    #   datasets
+    #   faiss-cpu
+    #   langchain
+    #   langchain-community
+    #   pandas
+    #   pydeck
+    #   ragas
+    #   scikit-learn
+    #   scipy
+    #   streamlit
+    #   transformers
+    #   unstructured
+nvidia-cublas-cu12==12.8.4.1
+    # via
+    #   nvidia-cudnn-cu12
+    #   nvidia-cusolver-cu12
+    #   torch
+nvidia-cuda-cupti-cu12==12.8.90
+    # via torch
+nvidia-cuda-nvrtc-cu12==12.8.93
+    # via torch
+nvidia-cuda-runtime-cu12==12.8.90
+    # via torch
+nvidia-cudnn-cu12==9.10.2.21
+    # via torch
+nvidia-cufft-cu12==11.3.3.83
+    # via torch
+nvidia-cufile-cu12==1.13.1.3
+    # via torch
+nvidia-curand-cu12==10.3.9.90
+    # via torch
+nvidia-cusolver-cu12==11.7.3.90
+    # via torch
+nvidia-cusparse-cu12==12.5.8.93
+    # via
+    #   nvidia-cusolver-cu12
+    #   torch
+nvidia-cusparselt-cu12==0.7.1
+    # via torch
+nvidia-nccl-cu12==2.27.3
+    # via torch
+nvidia-nvjitlink-cu12==12.8.93
+    # via
+    #   nvidia-cufft-cu12
+    #   nvidia-cusolver-cu12
+    #   nvidia-cusparse-cu12
+    #   torch
+nvidia-nvtx-cu12==12.8.90
+    # via torch
+ollama==0.2.1
+    # via assistente-wcag (pyproject.toml)
+openai==1.107.0
+    # via
+    #   langchain-openai
+    #   ragas
+orjson==3.11.3
+    # via langsmith
+packaging==24.2
+    # via
+    #   altair
+    #   black
+    #   datasets
+    #   faiss-cpu
+    #   huggingface-hub
+    #   langchain-core
+    #   marshmallow
+    #   pytest
+    #   streamlit
+    #   transformers
+pandas==2.3.2
+    # via
+    #   datasets
+    #   streamlit
+pathspec==0.12.1
+    # via
+    #   black
+    #   mypy
+pillow==11.3.0
+    # via
+    #   sentence-transformers
+    #   streamlit
+platformdirs==4.4.0
+    # via black
+pluggy==1.6.0
+    # via pytest
+propcache==0.3.2
+    # via
+    #   aiohttp
+    #   yarl
+protobuf==6.32.0
+    # via streamlit
+psutil==7.0.0
+    # via unstructured
+pyarrow==21.0.0
+    # via
+    #   datasets
+    #   streamlit
+pycparser==2.22
+    # via cffi
+pydantic==2.11.7
+    # via
+    #   langchain
+    #   langchain-core
+    #   langsmith
+    #   openai
+    #   unstructured-client
+pydantic-core==2.33.2
+    # via pydantic
+pydeck==0.9.1
+    # via streamlit
+pygments==2.19.2
+    # via pytest
+pypdf==4.3.1
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   unstructured-client
+pysbd==0.3.4
+    # via ragas
+pytest==8.4.2
+    # via assistente-wcag (pyproject.toml)
+python-dateutil==2.9.0.post0
+    # via pandas
+python-dotenv==1.1.1
+    # via assistente-wcag (pyproject.toml)
+python-iso639==2025.2.18
+    # via unstructured
+python-magic==0.4.27
+    # via unstructured
+pytz==2025.2
+    # via pandas
+pyyaml==6.0.2
+    # via
+    #   datasets
+    #   huggingface-hub
+    #   langchain
+    #   langchain-community
+    #   langchain-core
+    #   transformers
+ragas==0.1.22
+    # via assistente-wcag (pyproject.toml)
+rapidfuzz==3.14.1
+    # via unstructured
+referencing==0.36.2
+    # via
+    #   jsonschema
+    #   jsonschema-specifications
+regex==2025.9.1
+    # via
+    #   nltk
+    #   tiktoken
+    #   transformers
+requests==2.32.5
+    # via
+    #   datasets
+    #   huggingface-hub
+    #   langchain
+    #   langchain-community
+    #   langsmith
+    #   requests-toolbelt
+    #   streamlit
+    #   tiktoken
+    #   transformers
+    #   unstructured
+requests-toolbelt==1.0.0
+    # via
+    #   langsmith
+    #   unstructured-client
+rpds-py==0.27.1
+    # via
+    #   jsonschema
+    #   referencing
+ruff==0.12.12
+    # via assistente-wcag (pyproject.toml)
+safetensors==0.6.2
+    # via transformers
+scikit-learn==1.7.1
+    # via sentence-transformers
+scipy==1.16.1
+    # via
+    #   scikit-learn
+    #   sentence-transformers
+sentence-transformers==3.4.1
+    # via assistente-wcag (pyproject.toml)
+setuptools==80.9.0
+    # via
+    #   torch
+    #   triton
+six==1.17.0
+    # via
+    #   langdetect
+    #   python-dateutil
+smmap==5.0.2
+    # via gitdb
+sniffio==1.3.1
+    # via
+    #   anyio
+    #   httpx
+    #   openai
+soupsieve==2.8
+    # via beautifulsoup4
+sqlalchemy==2.0.43
+    # via
+    #   langchain
+    #   langchain-community
+streamlit==1.49.1
+    # via assistente-wcag (pyproject.toml)
+sympy==1.14.0
+    # via torch
+tabulate==0.9.0
+    # via unstructured
+tenacity==8.5.0
+    # via
+    #   langchain
+    #   langchain-community
+    #   langchain-core
+    #   streamlit
+threadpoolctl==3.6.0
+    # via scikit-learn
+tiktoken==0.11.0
+    # via
+    #   langchain-openai
+    #   ragas
+tokenizers==0.22.0
+    # via transformers
+toml==0.10.2
+    # via streamlit
+torch==2.8.0
+    # via sentence-transformers
+tornado==6.5.2
+    # via streamlit
+tqdm==4.67.1
+    # via
+    #   datasets
+    #   huggingface-hub
+    #   nltk
+    #   openai
+    #   sentence-transformers
+    #   transformers
+    #   unstructured
+transformers==4.56.1
+    # via sentence-transformers
+triton==3.4.0
+    # via torch
+typing-extensions==4.15.0
+    # via
+    #   aiosignal
+    #   altair
+    #   anyio
+    #   beautifulsoup4
+    #   huggingface-hub
+    #   langchain-core
+    #   mypy
+    #   openai
+    #   pydantic
+    #   pydantic-core
+    #   referencing
+    #   sqlalchemy
+    #   streamlit
+    #   torch
+    #   typing-inspect
+    #   typing-inspection
+    #   unstructured
+typing-inspect==0.9.0
+    # via dataclasses-json
+typing-inspection==0.4.1
+    # via pydantic
+tzdata==2025.2
+    # via pandas
+unstructured==0.14.10
+    # via assistente-wcag (pyproject.toml)
+unstructured-client==0.42.3
+    # via unstructured
+urllib3==2.5.0
+    # via requests
+watchdog==6.0.0
+    # via streamlit
+wrapt==1.17.3
+    # via unstructured
+xxhash==3.5.0
+    # via datasets
+yarl==1.20.1
+    # via aiohttp
