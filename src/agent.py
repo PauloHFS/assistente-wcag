@@ -1,6 +1,5 @@
 import os
-from typing import List, TypedDict, Optional
-from pydantic import BaseModel, Field
+from typing import List, Optional, TypedDict
 
 from langchain_community.chat_models import ChatOllama
 from langchain_community.vectorstores import Chroma
@@ -10,6 +9,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.retrievers import BaseRetriever
 from langchain_huggingface import HuggingFaceEmbeddings
 from langgraph.graph import END, StateGraph
+from pydantic import BaseModel, Field
+
 
 class State(TypedDict):
     """
@@ -20,14 +21,17 @@ class State(TypedDict):
         documents (List[Document]): Documentos recuperados que são relevantes para a pergunta.
         generation (str): A resposta gerada pelo LLM com base nos documentos.
     """
+
     question: str
     documents: List[Document]
     generation: str
+
 
 class RAGAgent:
     """
     Encapsula toda a lógica, componentes e o workflow de um agente RAG.
     """
+
     DISCLAIMER_TEXT = (
         "\n\n---"
         "\n**Aviso**: Esta ferramenta é uma Prova de Conceito (PoC) e suas "
@@ -35,13 +39,17 @@ class RAGAgent:
         "as informações antes de utilizá-las."
     )
 
-    def __init__(self, llm: Optional[BaseChatModel] = None, retriever: Optional[BaseRetriever] = None):
+    def __init__(
+        self,
+        llm: Optional[BaseChatModel] = None,
+        retriever: Optional[BaseRetriever] = None,
+    ):
         """
         Inicializa o agente, carregando seus componentes e compilando o workflow.
         """
         print("--- Inicializando o RAGAgent... ---")
-        
-        self.llm = llm or ChatOllama(model="llama3.1:8b", temperature=0)
+
+        self.llm = llm or ChatOllama(model="llama3.1:8b", temperature=0.5)
 
         if retriever:
             self.retriever = retriever
@@ -49,8 +57,10 @@ class RAGAgent:
             embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-small")
             chroma_db_path = "./chroma_langchain_db"
             if not os.path.exists(chroma_db_path):
-                raise FileNotFoundError(f"Diretório do ChromaDB não encontrado em '{chroma_db_path}'.")
-            
+                raise FileNotFoundError(
+                    f"Diretório do ChromaDB não encontrado em '{chroma_db_path}'."
+                )
+
             vector_store = Chroma(
                 collection_name="WCAG",
                 embedding_function=embeddings,
@@ -85,14 +95,13 @@ class RAGAgent:
         question = state["question"]
         documents = self.retriever.invoke(question)
         print(f"--- {len(documents)} DOCUMENTOS RECUPERADOS ---")
-        # O retorno é um dicionário para ATUALIZAR o estado, não precisa conter todos os campos.
         return {"documents": documents, "question": question}
-    
+
     @staticmethod
     def format_docs_with_link(docs: List[Document]) -> str:
         """Formata os documentos recuperados para incluir links e títulos."""
         formatted = [
-            f"""Source Link: {doc.metadata.get('source', 'N/A')}\nArticle Title: {doc.metadata.get('title', 'N/A')}\n
+            f"""Source Link: {doc.metadata.get("source", "N/A")}\nArticle Title: {doc.metadata.get("title", "N/A")}\n
             Article Snippet: {doc.page_content}"""
             for doc in docs
         ]
@@ -103,7 +112,6 @@ class RAGAgent:
         print("--- GERANDO RESPOSTA ---")
         question = state["question"]
         documents = state["documents"]
-        # CORREÇÃO: Chamando o método estático corretamente.
         formatted_docs = RAGAgent.format_docs_with_link(documents)
 
         prompt_template = """
@@ -123,7 +131,6 @@ class RAGAgent:
         response = chain.invoke({"question": question, "context": formatted_docs})
         generation = response.content
         print("--- RESPOSTA GERADA ---")
-        # Atualiza o estado com a geração.
         return {"generation": generation}
 
     def safety_node(self, state: State) -> State:
@@ -133,7 +140,7 @@ class RAGAgent:
         print("--- ADICIONANDO AVISO DE SEGURANÇA ---")
         current_generation = state.get("generation", "")
         updated_generation = current_generation + self.DISCLAIMER_TEXT
-        
+
         # Atualiza o estado com a geração final.
         return {"generation": updated_generation}
 
