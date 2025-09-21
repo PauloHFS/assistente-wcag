@@ -11,9 +11,6 @@ from langchain_core.retrievers import BaseRetriever
 from langchain_huggingface import HuggingFaceEmbeddings
 from langgraph.graph import END, StateGraph
 
-# Import do modelo de chat do Google GenAI
-from langchain_google_genai import ChatGoogleGenerativeAI
-
 # Definição da estrutura para o Grader
 class GradeDocuments(BaseModel):
     """Avalia documentos usando uma pontuação binária para uma checagem de relevância."""
