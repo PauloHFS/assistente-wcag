@@ -27,15 +27,18 @@ class State(TypedDict):
         documents (List[Document]): Documentos recuperados que são relevantes para a pergunta.
         generation (str): A resposta gerada pelo LLM com base nos documentos.
     """
+
     question: str
     documents: List[Document]
     generation: str
+
 
 class RAGAgent:
     """
     Encapsula toda a lógica, componentes e o workflow de um agente RAG
     com verificação de relevância e reescrita de perguntas.
     """
+
     DISCLAIMER_TEXT = (
         "\n\n---"
         "\n**Aviso**: Esta ferramenta é uma Prova de Conceito (PoC) e suas "
@@ -116,13 +119,14 @@ class RAGAgent:
         print(f"--- {len(documents)} DOCUMENTOS RECUPERADOS ---")
         return {"documents": documents, "question": question}
 
+
     @staticmethod
     def format_docs_with_link(docs: List[Document]) -> str:
         """Formata os documentos recuperados para incluir links e títulos."""
         if not docs:
             return "Nenhum documento encontrado."
         formatted = [
-            f"""Source Link: {doc.metadata.get('source', 'N/A')}\nArticle Title: {doc.metadata.get('title', 'N/A')}\n
+            f"""Source Link: {doc.metadata.get("source", "N/A")}\nArticle Title: {doc.metadata.get("title", "N/A")}\n
             Article Snippet: {doc.page_content}"""
             for doc in docs
         ]

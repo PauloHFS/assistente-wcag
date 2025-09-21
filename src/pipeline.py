@@ -1,15 +1,17 @@
 import re
-import langchain
 from uuid import uuid4
-from langchain_core.documents import Document
+
+import langchain
+from langchain_chroma import Chroma
+from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_community.document_loaders import RecursiveUrlLoader
 from langchain_community.document_transformers import BeautifulSoupTransformer
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.docstore.in_memory import InMemoryDocstore
-from langchain_chroma import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def load_and_parse(link: str) -> list[Document]:
+
+def load_and_parse(link: str):
     """
     Carrega o conteúdo de uma URL e as sub-páginas, extrai o texto principal
     utilizando um transformador BeautifulSoup, e retorna uma lista de objetos
@@ -28,21 +30,17 @@ def load_and_parse(link: str) -> list[Document]:
 
     # 2. Transforma os documentos extraídos para filtrar tags e conteúdo
     bs4_transformer = BeautifulSoupTransformer()
-    tags = ["main", "article", "p",
-            "h1", "h2", "h3",
-            "h4", "h5", "h6"]
+    tags = ["main", "article", "p", "h1", "h2", "h3", "h4", "h5", "h6"]
     unwanted = ["nav", "footer", "aside"]
 
     docs = bs4_transformer.transform_documents(
-        pages,
-        tags_to_extract=tags,
-        unwanted_classnames=unwanted
+        pages, tags_to_extract=tags, unwanted_classnames=unwanted
     )
     return docs
 
 
 def chunk_docs(docs: list[Document]) -> list[Document]:
-    #Instancia objeto responsável por separar os documentos originais em documentos menores
+    # Instancia objeto responsável por separar os documentos originais em documentos menores
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200,
@@ -60,12 +58,12 @@ def chunk_docs_list(docs, chunk_size):
     Args:
         docs: A lista de documentos a ser dividida.
         chunk_size: O tamanho máximo de cada pc(docs: list[Dedaço.
-        
+
     Yields:
         Sub-listas de documentos, cada uma com até chunk_size elementos.
     """
     for i in range(0, len(docs), chunk_size):
-        yield docs[i: i + chunk_size]
+        yield docs[i : i + chunk_size]
 
 
 def create_vector_store(docs: list[Document]) -> Chroma:

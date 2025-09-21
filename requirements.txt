@@ -19,27 +19,41 @@ anyio==4.10.0
     # via
     #   httpx
     #   openai
+    #   starlette
+    #   watchfiles
 appdirs==1.4.4
     # via ragas
+asgiref==3.9.1
+    # via opentelemetry-instrumentation-asgi
 attrs==25.3.0
     # via
     #   aiohttp
     #   jsonschema
     #   referencing
 backoff==2.2.1
-    # via unstructured
+    # via
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   posthog
+    #   unstructured
+bcrypt==4.3.0
+    # via chromadb
 beautifulsoup4==4.13.5
     # via
     #   assistente-wcag (pyproject.toml)
     #   unstructured
 blinker==1.9.0
     # via streamlit
-cachetools==6.2.0
-    # via streamlit
+build==1.3.0
+    # via chromadb
+cachetools==5.5.2
+    # via
+    #   google-auth
+    #   streamlit
 certifi==2025.8.3
     # via
     #   httpcore
     #   httpx
+    #   kubernetes
     #   requests
 cffi==2.0.0
     # via cryptography
@@ -47,10 +61,18 @@ chardet==5.2.0
     # via unstructured
 charset-normalizer==3.4.3
     # via requests
+chroma-hnswlib==0.7.6
+    # via chromadb
+chromadb==0.6.3
+    # via langchain-chroma
 click==8.2.1
     # via
     #   nltk
     #   streamlit
+    #   typer
+    #   uvicorn
+coloredlogs==15.0.1
+    # via onnxruntime
 cryptography==45.0.7
     # via unstructured-client
 dataclasses-json==0.6.7
@@ -64,11 +86,17 @@ dill==0.3.8
     #   datasets
     #   multiprocess
 distro==1.9.0
-    # via openai
+    # via
+    #   openai
+    #   posthog
+durationpy==0.10
+    # via kubernetes
 emoji==2.14.1
     # via unstructured
 faiss-cpu==1.12.0
     # via assistente-wcag (pyproject.toml)
+fastapi==0.116.1
+    # via chromadb
 filelock==3.19.1
     # via
     #   datasets
@@ -77,6 +105,8 @@ filelock==3.19.1
     #   transformers
 filetype==1.2.0
     # via unstructured
+flatbuffers==25.2.10
+    # via onnxruntime
 frozenlist==1.7.0
     # via
     #   aiohttp
@@ -90,18 +120,61 @@ gitdb==4.0.12
     # via gitpython
 gitpython==3.1.45
     # via streamlit
+google-ai-generativelanguage==0.6.6
+    # via google-generativeai
+google-api-core==2.25.1
+    # via
+    #   google-ai-generativelanguage
+    #   google-api-python-client
+    #   google-generativeai
+google-api-python-client==2.181.0
+    # via google-generativeai
+google-auth==2.40.3
+    # via
+    #   google-ai-generativelanguage
+    #   google-api-core
+    #   google-api-python-client
+    #   google-auth-httplib2
+    #   google-generativeai
+    #   kubernetes
+google-auth-httplib2==0.2.0
+    # via google-api-python-client
+google-generativeai==0.7.2
+    # via langchain-google-genai
+googleapis-common-protos==1.70.0
+    # via
+    #   google-api-core
+    #   grpcio-status
+    #   opentelemetry-exporter-otlp-proto-grpc
 greenlet==3.2.4
     # via sqlalchemy
+grpcio==1.75.0
+    # via
+    #   chromadb
+    #   google-api-core
+    #   grpcio-status
+    #   opentelemetry-exporter-otlp-proto-grpc
+grpcio-status==1.62.3
+    # via google-api-core
 h11==0.16.0
-    # via httpcore
+    # via
+    #   httpcore
+    #   uvicorn
 hf-xet==1.1.9
     # via huggingface-hub
 httpcore==1.0.9
     # via
     #   httpx
     #   unstructured-client
+httplib2==0.31.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
+httptools==0.6.4
+    # via uvicorn
 httpx==0.27.2
     # via
+    #   chromadb
     #   langsmith
     #   ollama
     #   openai
@@ -109,15 +182,22 @@ httpx==0.27.2
 huggingface-hub==0.34.4
     # via
     #   datasets
+    #   langchain-huggingface
     #   sentence-transformers
     #   tokenizers
     #   transformers
+humanfriendly==10.0
+    # via coloredlogs
 idna==3.10
     # via
     #   anyio
     #   httpx
     #   requests
     #   yarl
+importlib-metadata==8.7.0
+    # via opentelemetry-api
+importlib-resources==6.5.2
+    # via chromadb
 iniconfig==2.1.0
     # via pytest
 jinja2==3.1.6
@@ -139,11 +219,15 @@ jsonschema==4.25.1
     # via altair
 jsonschema-specifications==2025.9.1
     # via jsonschema
+kubernetes==33.1.0
+    # via chromadb
 langchain==0.2.17
     # via
     #   assistente-wcag (pyproject.toml)
     #   langchain-community
     #   ragas
+langchain-chroma==0.2.2
+    # via assistente-wcag (pyproject.toml)
 langchain-community==0.2.19
     # via
     #   assistente-wcag (pyproject.toml)
@@ -152,11 +236,18 @@ langchain-core==0.2.43
     # via
     #   assistente-wcag (pyproject.toml)
     #   langchain
+    #   langchain-chroma
     #   langchain-community
+    #   langchain-google-genai
+    #   langchain-huggingface
     #   langchain-openai
     #   langchain-text-splitters
     #   langgraph
     #   ragas
+langchain-google-genai==1.0.10
+    # via assistente-wcag (pyproject.toml)
+langchain-huggingface==0.0.3
+    # via assistente-wcag (pyproject.toml)
 langchain-openai==0.1.25
     # via ragas
 langchain-text-splitters==0.2.4
@@ -172,10 +263,16 @@ langsmith==0.1.147
     #   langchain-core
 lxml==6.0.1
     # via unstructured
+markdown-it-py==4.0.0
+    # via rich
 markupsafe==3.0.2
     # via jinja2
 marshmallow==3.26.1
     # via dataclasses-json
+mdurl==0.1.2
+    # via markdown-it-py
+mmh3==5.2.0
+    # via chromadb
 mpmath==1.3.0
     # via sympy
 multidict==6.6.4
@@ -200,10 +297,14 @@ nltk==3.9.1
     # via unstructured
 numpy==1.26.4
     # via
+    #   chroma-hnswlib
+    #   chromadb
     #   datasets
     #   faiss-cpu
     #   langchain
+    #   langchain-chroma
     #   langchain-community
+    #   onnxruntime
     #   pandas
     #   pydeck
     #   ragas
@@ -249,22 +350,70 @@ nvidia-nvjitlink-cu12==12.8.93
     #   torch
 nvidia-nvtx-cu12==12.8.90
     # via torch
+oauthlib==3.3.1
+    # via
+    #   kubernetes
+    #   requests-oauthlib
 ollama==0.2.1
     # via assistente-wcag (pyproject.toml)
+onnxruntime==1.22.1
+    # via chromadb
 openai==1.107.0
     # via
     #   langchain-openai
     #   ragas
+opentelemetry-api==1.37.0
+    # via
+    #   chromadb
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-instrumentation
+    #   opentelemetry-instrumentation-asgi
+    #   opentelemetry-instrumentation-fastapi
+    #   opentelemetry-sdk
+    #   opentelemetry-semantic-conventions
+opentelemetry-exporter-otlp-proto-grpc==1.15.0
+    # via chromadb
+opentelemetry-instrumentation==0.58b0
+    # via
+    #   opentelemetry-instrumentation-asgi
+    #   opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-asgi==0.58b0
+    # via opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-fastapi==0.58b0
+    # via chromadb
+opentelemetry-proto==1.15.0
+    # via opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-sdk==1.37.0
+    # via
+    #   chromadb
+    #   opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-semantic-conventions==0.58b0
+    # via
+    #   opentelemetry-instrumentation
+    #   opentelemetry-instrumentation-asgi
+    #   opentelemetry-instrumentation-fastapi
+    #   opentelemetry-sdk
+opentelemetry-util-http==0.58b0
+    # via
+    #   opentelemetry-instrumentation-asgi
+    #   opentelemetry-instrumentation-fastapi
 orjson==3.11.3
-    # via langsmith
+    # via
+    #   chromadb
+    #   langsmith
+overrides==7.7.0
+    # via chromadb
 packaging==24.2
     # via
     #   altair
+    #   build
     #   datasets
     #   faiss-cpu
     #   huggingface-hub
     #   langchain-core
     #   marshmallow
+    #   onnxruntime
+    #   opentelemetry-instrumentation
     #   pytest
     #   streamlit
     #   transformers
@@ -280,22 +429,46 @@ pillow==11.3.0
     #   streamlit
 pluggy==1.6.0
     # via pytest
+posthog==6.7.5
+    # via chromadb
 propcache==0.3.2
     # via
     #   aiohttp
     #   yarl
-protobuf==6.32.0
-    # via streamlit
+proto-plus==1.26.1
+    # via
+    #   google-ai-generativelanguage
+    #   google-api-core
+protobuf==4.25.8
+    # via
+    #   google-ai-generativelanguage
+    #   google-api-core
+    #   google-generativeai
+    #   googleapis-common-protos
+    #   grpcio-status
+    #   onnxruntime
+    #   opentelemetry-proto
+    #   proto-plus
+    #   streamlit
 psutil==7.0.0
     # via unstructured
 pyarrow==21.0.0
     # via
     #   datasets
     #   streamlit
+pyasn1==0.6.1
+    # via
+    #   pyasn1-modules
+    #   rsa
+pyasn1-modules==0.4.2
+    # via google-auth
 pycparser==2.22
     # via cffi
 pydantic==2.11.7
     # via
+    #   chromadb
+    #   fastapi
+    #   google-generativeai
     #   langchain
     #   langchain-core
     #   langsmith
@@ -306,19 +479,32 @@ pydantic-core==2.33.2
 pydeck==0.9.1
     # via streamlit
 pygments==2.19.2
-    # via pytest
+    # via
+    #   pytest
+    #   rich
+pyparsing==3.2.4
+    # via httplib2
 pypdf==4.3.1
     # via
     #   assistente-wcag (pyproject.toml)
     #   unstructured-client
+pypika==0.48.9
+    # via chromadb
+pyproject-hooks==1.2.0
+    # via build
 pysbd==0.3.4
     # via ragas
 pytest==8.4.2
     # via assistente-wcag (pyproject.toml)
 python-dateutil==2.9.0.post0
-    # via pandas
+    # via
+    #   kubernetes
+    #   pandas
+    #   posthog
 python-dotenv==1.1.1
-    # via assistente-wcag (pyproject.toml)
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   uvicorn
 python-iso639==2025.2.18
     # via unstructured
 python-magic==0.4.27
@@ -327,12 +513,15 @@ pytz==2025.2
     # via pandas
 pyyaml==6.0.2
     # via
+    #   chromadb
     #   datasets
     #   huggingface-hub
+    #   kubernetes
     #   langchain
     #   langchain-community
     #   langchain-core
     #   transformers
+    #   uvicorn
 ragas==0.1.22
     # via assistente-wcag (pyproject.toml)
 rapidfuzz==3.14.1
@@ -349,23 +538,35 @@ regex==2025.9.1
 requests==2.32.5
     # via
     #   datasets
+    #   google-api-core
     #   huggingface-hub
+    #   kubernetes
     #   langchain
     #   langchain-community
     #   langsmith
+    #   posthog
+    #   requests-oauthlib
     #   requests-toolbelt
     #   streamlit
     #   tiktoken
     #   transformers
     #   unstructured
+requests-oauthlib==2.0.0
+    # via kubernetes
 requests-toolbelt==1.0.0
     # via
     #   langsmith
     #   unstructured-client
+rich==14.1.0
+    # via
+    #   chromadb
+    #   typer
 rpds-py==0.27.1
     # via
     #   jsonschema
     #   referencing
+rsa==4.9.1
+    # via google-auth
 ruff==0.12.12
     # via assistente-wcag (pyproject.toml)
 safetensors==0.6.2
@@ -377,14 +578,20 @@ scipy==1.16.1
     #   scikit-learn
     #   sentence-transformers
 sentence-transformers==3.4.1
-    # via assistente-wcag (pyproject.toml)
+    # via
+    #   assistente-wcag (pyproject.toml)
+    #   langchain-huggingface
 setuptools==80.9.0
     # via
     #   torch
     #   triton
+shellingham==1.5.4
+    # via typer
 six==1.17.0
     # via
+    #   kubernetes
     #   langdetect
+    #   posthog
     #   python-dateutil
 smmap==5.0.2
     # via gitdb
@@ -399,14 +606,19 @@ sqlalchemy==2.0.43
     # via
     #   langchain
     #   langchain-community
+starlette==0.47.3
+    # via fastapi
 streamlit==1.49.1
     # via assistente-wcag (pyproject.toml)
 sympy==1.14.0
-    # via torch
+    # via
+    #   onnxruntime
+    #   torch
 tabulate==0.9.0
     # via unstructured
 tenacity==8.5.0
     # via
+    #   chromadb
     #   langchain
     #   langchain-community
     #   langchain-core
@@ -418,7 +630,10 @@ tiktoken==0.11.0
     #   langchain-openai
     #   ragas
 tokenizers==0.22.0
-    # via transformers
+    # via
+    #   chromadb
+    #   langchain-huggingface
+    #   transformers
 toml==0.10.2
     # via streamlit
 torch==2.8.0
@@ -427,7 +642,9 @@ tornado==6.5.2
     # via streamlit
 tqdm==4.67.1
     # via
+    #   chromadb
     #   datasets
+    #   google-generativeai
     #   huggingface-hub
     #   nltk
     #   openai
@@ -435,25 +652,39 @@ tqdm==4.67.1
     #   transformers
     #   unstructured
 transformers==4.56.1
-    # via sentence-transformers
+    # via
+    #   langchain-huggingface
+    #   sentence-transformers
 triton==3.4.0
     # via torch
+typer==0.17.4
+    # via chromadb
 typing-extensions==4.15.0
     # via
     #   aiosignal
     #   altair
     #   anyio
     #   beautifulsoup4
+    #   chromadb
+    #   fastapi
+    #   google-generativeai
+    #   grpcio
     #   huggingface-hub
     #   langchain-core
     #   mypy
     #   openai
+    #   opentelemetry-api
+    #   opentelemetry-sdk
+    #   opentelemetry-semantic-conventions
+    #   posthog
     #   pydantic
     #   pydantic-core
     #   referencing
     #   sqlalchemy
+    #   starlette
     #   streamlit
     #   torch
+    #   typer
     #   typing-inspect
     #   typing-inspection
     #   unstructured
@@ -467,13 +698,31 @@ unstructured==0.14.10
     # via assistente-wcag (pyproject.toml)
 unstructured-client==0.42.3
     # via unstructured
+uritemplate==4.2.0
+    # via google-api-python-client
 urllib3==2.5.0
-    # via requests
+    # via
+    #   kubernetes
+    #   requests
+uvicorn==0.35.0
+    # via chromadb
+uvloop==0.21.0
+    # via uvicorn
 watchdog==6.0.0
     # via streamlit
+watchfiles==1.1.0
+    # via uvicorn
+websocket-client==1.8.0
+    # via kubernetes
+websockets==15.0.1
+    # via uvicorn
 wrapt==1.17.3
-    # via unstructured
+    # via
+    #   opentelemetry-instrumentation
+    #   unstructured
 xxhash==3.5.0
     # via datasets
 yarl==1.20.1
     # via aiohttp
+zipp==3.23.0
+    # via importlib-metadata
