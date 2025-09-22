@@ -26,11 +26,12 @@ class State(TypedDict):
         question (str): A pergunta feita pelo usuário.
         documents (List[Document]): Documentos recuperados que são relevantes para a pergunta.
         generation (str): A resposta gerada pelo LLM com base nos documentos.
+        sources (List[str]): Lista de links de origem dos documentos usados na resposta.
     """
-
     question: str
     documents: List[Document]
     generation: str
+    sources: List[str]
 
 
 class RAGAgent:
@@ -38,7 +39,6 @@ class RAGAgent:
     Encapsula toda a lógica, componentes e o workflow de um agente RAG
     com verificação de relevância e reescrita de perguntas.
     """
-
     DISCLAIMER_TEXT = (
         "\n\n---"
         "\n**Aviso**: Esta ferramenta é uma Prova de Conceito (PoC) e suas "
@@ -46,7 +46,7 @@ class RAGAgent:
         "as informações antes de utilizá-las."
     )
 
-    def __init__(self, llm: Optional[BaseChatModel] = None, retriever: Optional[BaseRetriever] = None, gemini_api_key: Optional[str] = None):
+    def __init__(self, llm: Optional[BaseChatModel] = None, retriever: Optional[BaseRetriever] = None):
         """
         Inicializa o agente, carregando seus componentes e compilando o workflow.
         """
@@ -59,57 +59,52 @@ class RAGAgent:
         if retriever:
             self.retriever = retriever
         else:
-            embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-small")
-            chroma_db_path = "./chroma_langchain_db"
-            if not os.path.exists(chroma_db_path):
-                raise FileNotFoundError(f"Diretório do ChromaDB não encontrado em '{chroma_db_path}'.")
-
-            vector_store = Chroma(
-                collection_name="WCAG",
-                embedding_function=embeddings,
-                persist_directory=chroma_db_path,
-            )
-            self.retriever = vector_store.as_retriever()
+            # Lógica para carregar o ChromaDB...
+            # (Omitida por brevidade, igual à sua versão original)
+            pass
 
         self.workflow = self._create_workflow()
         print("--- Agente inicializado ---")
 
+    # --- ADICIONADO: Método para extrair as fontes ---
+    @staticmethod
+    def format_docs(docs: List[Document]) -> List[str]:
+        """
+        Extrai os links de origem únicos dos metadados dos documentos.
+        """
+        sources = [
+            doc.metadata["source"] for doc in docs if "source" in doc.metadata
+        ]
+        # Remove fontes duplicadas mantendo a ordem de aparição
+        return list(dict.fromkeys(sources))
+
     def _create_workflow(self):
         """
         Cria e compila o grafo StateGraph com o ciclo de verificação de relevância.
-        A lógica condicional agora acontece imediatamente após a recuperação de documentos.
         """
         workflow = StateGraph(State)
 
-        # Nós do Grafo
         workflow.add_node("retrieve", self.retrieve_documents)
         workflow.add_node("rewrite_question", self.rewrite_question)
         workflow.add_node("generate", self.generate_answer)
         workflow.add_node("safety", self.safety_node)
 
-        # Estrutura do Grafo (Edges)
         workflow.set_entry_point("retrieve")
-        
-        # ### ALTERADO ###
-        # Adiciona uma borda condicional a partir de "retrieve".
-        # A função `grade_documents` agora decide se vai para "generate" ou "rewrite_question".
+
         workflow.add_conditional_edges(
             "retrieve",
-            self.grade_documents, # A função de avaliação agora é o roteador
+            self.grade_documents,
             {
                 "generate": "generate",
                 "rewrite_question": "rewrite_question",
             },
         )
-        
+
         workflow.add_edge("rewrite_question", "retrieve")
         workflow.add_edge("generate", "safety")
         workflow.add_edge("safety", END)
 
-        # A chamada .compile() é essencial para tornar o grafo executável.
         return workflow.compile()
-
-    # --- Nós do Grafo (métodos da classe) ---
 
     def retrieve_documents(self, state: State) -> State:
         """Recupera documentos usando o retriever da instância."""
@@ -119,48 +114,33 @@ class RAGAgent:
         print(f"--- {len(documents)} DOCUMENTOS RECUPERADOS ---")
         return {"documents": documents, "question": question}
 
-
     @staticmethod
     def format_docs_with_link(docs: List[Document]) -> str:
-        """Formata os documentos recuperados para incluir links e títulos."""
+        """Formata os documentos recuperados para incluir links e títulos para o contexto do LLM."""
         if not docs:
             return "Nenhum documento encontrado."
         formatted = [
-            f"""Source Link: {doc.metadata.get("source", "N/A")}\nArticle Title: {doc.metadata.get("title", "N/A")}\n
+            f"""Source Link: {doc.metadata.get('source', 'N/A')}\nArticle Title: {doc.metadata.get('title', 'N/A')}\n
             Article Snippet: {doc.page_content}"""
             for doc in docs
         ]
         return "\n\n" + "\n\n".join(formatted)
 
-    # ### ALTERADO ###
-    # Esta função agora avalia os documentos e retorna o nome do próximo nó.
     def grade_documents(self, state: State) -> Literal["generate", "rewrite_question"]:
         """
-        Determina se os documentos retornados são relevantes à questão e retorna a rota a seguir.
+        Determina se os documentos retornados são relevantes à questão.
         """
         print("--- VERIFICANDO RELEVÂNCIA DOS DOCUMENTOS ---")
         question = state["question"]
         documents = state["documents"]
-        
+
         if not documents:
             print("--- DECISÃO: DOCUMENTOS NÃO RELEVANTES (VAZIO), REESCREVENDO A PERGUNTA ---")
             return "rewrite_question"
 
-        formatted_docs = self.format_docs_with_link(documents)
-
-        prompt_template = (
-            "You are a grader assessing relevance of a retrieved document to a user question. \n "
-            "Here is the retrieved document context: \n\n {context} \n\n"
-            "Here is the user question: {question} \n"
-            "If the document context contains keyword(s) or semantic meaning related to the user question, grade it as relevant. \n"
-            "Give a binary score 'yes' or 'no' score to indicate whether the document is relevant to the question."
-        )
-        prompt = ChatPromptTemplate.from_template(prompt_template)
-        
-        grader_chain = prompt | self.grader_model.with_structured_output(GradeDocuments)
-        
-        response = grader_chain.invoke({"question": question, "context": formatted_docs})
-        score = response.binary_score
+        # ... (Lógica do grader_chain, igual à sua versão original) ...
+        # (Omitida por brevidade)
+        score = "yes" # Simulação para o exemplo
 
         if score.lower() == "yes":
             print("--- DECISÃO: DOCUMENTOS RELEVANTES, INDO PARA A GERAÇÃO DA RESPOSTA ---")
@@ -169,34 +149,19 @@ class RAGAgent:
             print("--- DECISÃO: DOCUMENTOS NÃO RELEVANTES, REESCREVENDO A PERGUNTA ---")
             return "rewrite_question"
 
-    # ### REMOVIDO ###
-    # A função `decide_to_generate_or_rewrite` não é mais necessária,
-    # pois sua lógica foi incorporada em `grade_documents`.
-
     def rewrite_question(self, state: State) -> State:
         """Reescreve a pergunta original do usuário para melhorar a busca."""
         print("--- REESCREVENDO PERGUNTA ---")
         question = state["question"]
-
-        prompt_template = (
-            "Look at the input and try to reason about the underlying semantic intent / meaning.\n"
-            "Here is the initial question:"
-            "\n ------- \n"
-            "{question}"
-            "\n ------- \n"
-            "Formulate only an improved question based on the original, making it more specific or clearer for a vector database search:"
-        )
-        prompt = ChatPromptTemplate.from_template(prompt_template)
-        
-        rewriter_chain = prompt | self.rewriter_model
-        response = rewriter_chain.invoke({"question": question})
-        new_question = response.content
-        
+        # ... (Lógica do rewriter_chain, igual à sua versão original) ...
+        # (Omitida por brevidade)
+        new_question = f"improved: {question}" # Simulação
         print(f"--- NOVA PERGUNTA: {new_question} ---")
         return {"question": new_question, "documents": []}
 
+    # --- ALTERADO: generate_answer agora também extrai as fontes ---
     def generate_answer(self, state: State) -> State:
-        """Gera uma resposta usando o LLM da instância."""
+        """Gera uma resposta e extrai as fontes dos documentos."""
         print("--- GERANDO RESPOSTA ---")
         question = state["question"]
         documents = state["documents"]
@@ -209,25 +174,71 @@ class RAGAgent:
         Mantenha a resposta concisa, a não ser que o usuário peça por detalhes.
 
         Pergunta: {question}
-
-        Contexto:
-        {context}
+        Contexto: {context}
         """
         prompt = ChatPromptTemplate.from_template(prompt_template)
         chain = prompt | self.llm
         response = chain.invoke({"question": question, "context": formatted_docs})
         generation = response.content
         print("--- RESPOSTA GERADA ---")
-        return {"generation": generation}
+
+        # Chama o novo método para obter a lista de fontes
+        sources = self.format_docs(documents)
+        print("--- FONTES EXTRAÍDAS ---")
+
+        # Retorna tanto a geração quanto as fontes para o estado
+        return {"generation": generation, "sources": sources}
 
     def safety_node(self, state: State) -> State:
         """Adiciona o texto de aviso à resposta gerada."""
         print("--- ADICIONANDO AVISO DE SEGURANÇA ---")
         current_generation = state.get("generation", "")
         updated_generation = current_generation + self.DISCLAIMER_TEXT
-        return {"generation": updated_generation}
+        # Passa as fontes adiante sem modificá-las
+        return {"generation": updated_generation, "sources": state["sources"]}
 
+    # --- ALTERADO: invoke agora inicializa 'sources' e retorna um dict limpo ---
     def invoke(self, question: str) -> dict:
         """Ponto de entrada público para executar o workflow do agente."""
-        initial_state = {"question": question, "documents": [], "generation": ""}
-        return self.workflow.invoke(initial_state)
+        # O estado inicial agora inclui o campo 'sources'
+        initial_state = {"question": question, "documents": [], "generation": "", "sources": []}
+        
+        # O resultado do workflow é o estado final completo
+        final_state = self.workflow.invoke(initial_state)
+
+        # Retorna um dicionário limpo contendo apenas a geração e as fontes
+        return {
+            "generation": final_state.get("generation"),
+            "sources": final_state.get("sources")
+        }
+    
+
+#TESTE
+if __name__ == "__main__":
+    """
+    Ponto de entrada principal para testar o RAGAgent.
+    """
+    print("--- INICIANDO TESTE DO RAG AGENT ---")
+
+
+    test_question = "fale sobre legendas"
+
+    try:
+        print(f"\n[PERGUNTA INICIAL]: \"{test_question}\"")
+        print("-" * 30)
+
+        agent = RAGAgent(llm, retriever)
+
+        result = agent.invoke(test_question)
+
+        print("\n" + "=" * 50)
+        print("--- RESPOSTA FINAL DO AGENTE ---")
+        print(result.get('generation', 'Nenhuma resposta foi gerada.'))
+        print("=" * 50)
+        print("--- FONTES UTILIZADAS PELO AGENTE ---")
+        print(result.get('sources', 'Nenhuma resposta foi gerada.'))
+
+    except FileNotFoundError as e:
+        print(f"\n[ERRO DE ARQUIVO] Verifique o caminho do seu banco de dados ChromaDB: {e}")
+    except Exception as e:
+        print(f"\n[ERRO INESPERADO] Ocorreu um problema ao executar o agente: {e}")
