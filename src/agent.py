@@ -170,7 +170,6 @@ class RAGAgent:
         print(f"--- NOVA PERGUNTA: {new_question} ---")
         return {"question": new_question, "documents": []}
 
-    # --- ALTERADO: generate_answer agora também extrai as fontes ---
     def generate_answer(self, state: State) -> State:
         """Gera uma resposta e extrai as fontes dos documentos."""
         print("--- GERANDO RESPOSTA ---")
@@ -208,7 +207,6 @@ class RAGAgent:
         # Passa as fontes adiante sem modificá-las
         return {"generation": updated_generation, "sources": state["sources"]}
 
-    # --- ALTERADO: invoke agora inicializa 'sources' e retorna um dict limpo ---
     def invoke(self, question: str) -> dict:
         """Ponto de entrada público para executar o workflow do agente."""
         # O estado inicial agora inclui o campo 'sources'
