@@ -1,6 +1,5 @@
 import os
-from typing import List, TypedDict, Optional, Literal
-from pydantic import BaseModel, Field
+from typing import List, Literal, Optional, TypedDict
 
 from langchain_community.chat_models import ChatOllama
 from langchain_community.vectorstores import Chroma
@@ -10,13 +9,17 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.retrievers import BaseRetriever
 from langchain_huggingface import HuggingFaceEmbeddings
 from langgraph.graph import END, StateGraph
+from pydantic import BaseModel, Field
+
 
 # Definição da estrutura para o Grader
 class GradeDocuments(BaseModel):
     """Avalia documentos usando uma pontuação binária para uma checagem de relevância."""
+
     binary_score: str = Field(
         description="Score de relevância: 'yes' se relevante, ou 'no' se não relevante"
     )
+
 
 class State(TypedDict):
     """
@@ -28,6 +31,7 @@ class State(TypedDict):
         generation (str): A resposta gerada pelo LLM com base nos documentos.
         sources (List[str]): Lista de links de origem dos documentos usados na resposta.
     """
+
     question: str
     documents: List[Document]
     generation: str
@@ -39,6 +43,7 @@ class RAGAgent:
     Encapsula toda a lógica, componentes e o workflow de um agente RAG
     com verificação de relevância e reescrita de perguntas.
     """
+
     DISCLAIMER_TEXT = (
         "\n\n---"
         "\n**Aviso**: Esta ferramenta é uma Prova de Conceito (PoC) e suas "
@@ -46,7 +51,11 @@ class RAGAgent:
         "as informações antes de utilizá-las."
     )
 
-    def __init__(self, llm: Optional[BaseChatModel] = None, retriever: Optional[BaseRetriever] = None):
+    def __init__(
+        self,
+        llm: Optional[BaseChatModel] = None,
+        retriever: Optional[BaseRetriever] = None,
+    ):
         """
         Inicializa o agente, carregando seus componentes e compilando o workflow.
         """
@@ -72,9 +81,7 @@ class RAGAgent:
         """
         Extrai os links de origem únicos dos metadados dos documentos.
         """
-        sources = [
-            doc.metadata["source"] for doc in docs if "source" in doc.metadata
-        ]
+        sources = [doc.metadata["source"] for doc in docs if "source" in doc.metadata]
         # Remove fontes duplicadas mantendo a ordem de aparição
         return list(dict.fromkeys(sources))
 
@@ -120,7 +127,7 @@ class RAGAgent:
         if not docs:
             return "Nenhum documento encontrado."
         formatted = [
-            f"""Source Link: {doc.metadata.get('source', 'N/A')}\nArticle Title: {doc.metadata.get('title', 'N/A')}\n
+            f"""Source Link: {doc.metadata.get("source", "N/A")}\nArticle Title: {doc.metadata.get("title", "N/A")}\n
             Article Snippet: {doc.page_content}"""
             for doc in docs
         ]
@@ -135,15 +142,19 @@ class RAGAgent:
         documents = state["documents"]
 
         if not documents:
-            print("--- DECISÃO: DOCUMENTOS NÃO RELEVANTES (VAZIO), REESCREVENDO A PERGUNTA ---")
+            print(
+                "--- DECISÃO: DOCUMENTOS NÃO RELEVANTES (VAZIO), REESCREVENDO A PERGUNTA ---"
+            )
             return "rewrite_question"
 
         # ... (Lógica do grader_chain, igual à sua versão original) ...
         # (Omitida por brevidade)
-        score = "yes" # Simulação para o exemplo
+        score = "yes"  # Simulação para o exemplo
 
         if score.lower() == "yes":
-            print("--- DECISÃO: DOCUMENTOS RELEVANTES, INDO PARA A GERAÇÃO DA RESPOSTA ---")
+            print(
+                "--- DECISÃO: DOCUMENTOS RELEVANTES, INDO PARA A GERAÇÃO DA RESPOSTA ---"
+            )
             return "generate"
         else:
             print("--- DECISÃO: DOCUMENTOS NÃO RELEVANTES, REESCREVENDO A PERGUNTA ---")
@@ -155,7 +166,7 @@ class RAGAgent:
         question = state["question"]
         # ... (Lógica do rewriter_chain, igual à sua versão original) ...
         # (Omitida por brevidade)
-        new_question = f"improved: {question}" # Simulação
+        new_question = f"improved: {question}"  # Simulação
         print(f"--- NOVA PERGUNTA: {new_question} ---")
         return {"question": new_question, "documents": []}
 
@@ -201,44 +212,18 @@ class RAGAgent:
     def invoke(self, question: str) -> dict:
         """Ponto de entrada público para executar o workflow do agente."""
         # O estado inicial agora inclui o campo 'sources'
-        initial_state = {"question": question, "documents": [], "generation": "", "sources": []}
-        
+        initial_state = {
+            "question": question,
+            "documents": [],
+            "generation": "",
+            "sources": [],
+        }
+
         # O resultado do workflow é o estado final completo
         final_state = self.workflow.invoke(initial_state)
 
         # Retorna um dicionário limpo contendo apenas a geração e as fontes
         return {
             "generation": final_state.get("generation"),
-            "sources": final_state.get("sources")
+            "sources": final_state.get("sources"),
         }
-    
-
-#TESTE
-if __name__ == "__main__":
-    """
-    Ponto de entrada principal para testar o RAGAgent.
-    """
-    print("--- INICIANDO TESTE DO RAG AGENT ---")
-
-
-    test_question = "fale sobre legendas"
-
-    try:
-        print(f"\n[PERGUNTA INICIAL]: \"{test_question}\"")
-        print("-" * 30)
-
-        agent = RAGAgent(llm, retriever)
-
-        result = agent.invoke(test_question)
-
-        print("\n" + "=" * 50)
-        print("--- RESPOSTA FINAL DO AGENTE ---")
-        print(result.get('generation', 'Nenhuma resposta foi gerada.'))
-        print("=" * 50)
-        print("--- FONTES UTILIZADAS PELO AGENTE ---")
-        print(result.get('sources', 'Nenhuma resposta foi gerada.'))
-
-    except FileNotFoundError as e:
-        print(f"\n[ERRO DE ARQUIVO] Verifique o caminho do seu banco de dados ChromaDB: {e}")
-    except Exception as e:
-        print(f"\n[ERRO INESPERADO] Ocorreu um problema ao executar o agente: {e}")
